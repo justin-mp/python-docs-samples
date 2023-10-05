@@ -17,7 +17,8 @@ import os
 
 from discoveryengine import search_sample
 
-project_id = os.environ["GOOGLE_CLOUD_PROJECT"]
+# project_id = os.environ["GOOGLE_CLOUD_PROJECT"]
+project_id = "python-docs-samples-tests"
 search_query = "Google"
 
 
@@ -32,6 +33,10 @@ def test_search():
     )
 
     assert response
+    assert response.results
+
+    for result in response.results:
+        assert result.document.name
 
 
 def test_search_eu_endpoint():
@@ -45,3 +50,9 @@ def test_search_eu_endpoint():
     )
 
     assert response
+    assert response.summary
+    assert response.results
+
+    for result in response.results:
+        assert result.document
+        assert result.document.name
